@@ -1,0 +1,35 @@
+You will get a fixed amount of time during which your boat has to travel as far as it can, and you win if your boat goes the farthest.
+
+You get a sheet of paper (your puzzle input) that lists the time allowed for each race and also the best distance ever recorded in that race. To guarantee you win the grand prize, you need to make sure you go farther in each race than the current record holder.
+
+They're actually toy boats, each with a big button on top. Holding down the button charges the boat, and releasing the button allows the boat to move. Boats move faster if their button was held longer, but time spent holding the button counts against the total race time. You can only hold the button at the start of the race, and boats don't move until the button is released.
+
+For example:
+
+Time:      7  15   30
+Distance:  9  40  200
+
+This document describes three races:
+
+The first race lasts 7 milliseconds. The record distance in this race is 9 millimeters.
+The second race lasts 15 milliseconds. The record distance in this race is 40 millimeters.
+The third race lasts 30 milliseconds. The record distance in this race is 200 millimeters.
+
+
+
+So, we need to calculate how long to hold the button at the start of each race, in order to beat the distance.
+
+
+Your toy boat has a starting speed of zero millimeters per millisecond. For each whole millisecond you spend at the beginning of the race holding down the button, the boat's speed increases by one millimeter per millisecond.
+
+
+
+Need to find ALL the number of ways to win the race, and return how many ways there are.
+
+
+One strategy for this, is to calculate all the permutations of how long you hold the button.
+
+E.g. for the 7ms race, you can hold the button either 0,1,2,3,4,5,6,7.
+The speed the boat will have upon being release is either 0,1,2,3,4,5,6,7 mm/ms
+etc.
+
