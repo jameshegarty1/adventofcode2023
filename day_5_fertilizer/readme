@@ -1,0 +1,22 @@
+Each line within a map contains three numbers: the destination range start, the source range start, and the range length.
+
+Consider again the example seed-to-soil map:
+
+50 98 2
+52 50 48
+
+
+so we have:
+
+seeds-to soil:
+
+98,99
+->
+50,51
+
+50-97
+->
+52-99
+
+
+Any source numbers that aren't mapped correspond to the same destination number. So, seed number 10 corresponds to soil number 10.
