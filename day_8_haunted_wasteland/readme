@@ -1,0 +1,32 @@
+We have some "maps" which show how to navigate the desert.
+
+RL
+
+AAA = (BBB, CCC)
+BBB = (DDD, EEE)
+CCC = (ZZZ, GGG)
+DDD = (DDD, DDD)
+EEE = (EEE, EEE)
+GGG = (GGG, GGG)
+ZZZ = (ZZZ, ZZZ)
+
+
+
+The instructions are "RL"
+
+We start at "AAA".
+
+Insruction "R" means take the right element of AAA = (BBB,CCC) -> CCC
+
+Now we are at "CCC"
+
+Instruction "L" means take the left element of CC = (ZZZ,GGG) -> ZZZ
+
+
+Once we arrive at ZZZ, we are finished.
+
+
+If it didn't work, and we didn't reach ZZZ, then we re-set the instructions and carry on.
+
+Hence "RL" really means "RLRLRLRLRL..." until ZZZ is reached.
+
