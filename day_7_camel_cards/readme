@@ -120,3 +120,4 @@ Hand { cards: [Queen, Queen, Queen, Jack, Ace], bid: 483, card_rank: [], hand_ty
 
 - Could create a hash-map which contains the counts of each CardType contained in the hand
 - Actually, this could replace the existing "Cards" object
+
