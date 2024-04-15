@@ -1,0 +1,24 @@
+We have a map such as:
+
+..F7.
+.FJ|.
+SJ.L7
+|F--J
+LJ...
+
+The starting point is S.
+
+We need to find the main loop, which we can do by going either side from S until pointers meet each other.
+
+
+Rules:
+
+| is a vertical pipe connecting north and south.
+- is a horizontal pipe connecting east and west.
+L is a 90-degree bend connecting north and east.
+J is a 90-degree bend connecting north and west.
+7 is a 90-degree bend connecting south and west.
+F is a 90-degree bend connecting south and east.
+. is ground; there is no pipe in this tile.
+
+
