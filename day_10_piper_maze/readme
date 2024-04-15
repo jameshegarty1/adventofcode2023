@@ -22,3 +22,51 @@ F is a 90-degree bend connecting south and east.
 . is ground; there is no pipe in this tile.
 
 
+I think I need to use a 2D grid here.
+
+We start with S at some location on the grid. We should check each adjacent cell on the grid, if the piece connects in the right direction, then it should be traversed.
+We should have 2 pointers traversing the grid. They can stop once they reach the same location.
+
+
+
+Pseudocode:
+
+struct Grid: Vec<Vec<Node>>
+
+struct Node {
+    node_type: NodeTypes,
+    location: i32,i32 
+}
+
+enum NodeTypes {
+    |
+    -
+    L
+    J
+    7
+    F
+    .
+    S
+}
+impl for NodeTypes {
+    fn connected_routes => {
+        | -> N,S
+        - -> E,W
+        L -> N,E
+        ...
+        S -> _
+    }
+}
+
+
+fn match() ->
+    if any adjacent i,j location has type which 
+
+Load data into grid
+
+Find S. Check which adjacent elements match
+
+
+start_location = S
+
+first_pointer:
