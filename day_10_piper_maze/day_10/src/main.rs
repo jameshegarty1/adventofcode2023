@@ -3,7 +3,7 @@ use std::{fs, process::exit};
 #[derive(Debug)]
 struct Tile {
     tile_type: TileType,
-    tile_location: (usize,usize),
+    tile_location: (i32,i32),
 }
 
 #[derive(Debug,PartialEq)]
@@ -55,18 +55,18 @@ enum Directions {
     West
 }
 
-
-
-fn find_char_linear(target: char, data: &Vec<Vec<char>>) -> Option<(usize, usize)> {
-    for (i, row) in data.iter().enumerate() {
-        for (j, &ch) in row.iter().enumerate() {
-            if ch == target {
-                return Some((i,j))
-            }
-        } 
+impl Directions {
+    fn transformation(&self) -> (i32,i32) {
+        match self {
+            Directions::North => (0,1),
+            Directions::East => (1,0),
+            Directions::South => (0,-1),
+            Directions::West => (-1,0),
+        }
     }
-    None
 }
+
+
 
 fn parse_file(file_path: &str) -> Vec<Tile> {
     let contents = fs::read_to_string(file_path)
@@ -78,7 +78,10 @@ fn parse_file(file_path: &str) -> Vec<Tile> {
         for (j, ch) in row.chars().enumerate() {
             match TileType::from_char(ch) {
                 Some(tile_type) => {
-                    let tile_location = (i,j);
+                    let x_i = i as i32; 
+                    let x_j = j as i32; 
+
+                    let tile_location = (x_i,x_j);
                     let tile = Tile {
                         tile_type,
                         tile_location
@@ -93,6 +96,29 @@ fn parse_file(file_path: &str) -> Vec<Tile> {
 }
 
 fn get_next_elements(data: &Vec<Tile>, location: &Tile) {
+    let directions = [
+        Directions::North,
+        Directions::East,
+        Directions::South,
+        Directions::West,
+    ];
+
+    let result = directions.iter().map(|dir|{
+        let (dx,dy) = dir.transformation();
+        let new_x = dx + location.tile_location.0;
+        let new_y = dy + location.tile_location.1;
+    
+        if new_x >= 0 && new_x < width as i32 && new_y >= 0 && new_y < height as i32 {
+            let index = new_y as usize * width + new_x as usize;
+            Some(tiles[index])
+        } else {
+            None
+        }
+    });
+
+    }
+
+    /*
     let north = data.iter().find(|&tile| tile.tile_location == (location.tile_location.0, location.tile_location.1 + 1));
     let east = data.iter().find(|&tile| tile.tile_location == (location.tile_location.0 + 1, location.tile_location.1));
     let south = data.iter().find(|&tile| tile.tile_location == (location.tile_location.0, location.tile_location.1 - 1));
@@ -129,9 +155,8 @@ fn get_next_elements(data: &Vec<Tile>, location: &Tile) {
             west_tile = tile;
         },
         None => println!("West out of bounds at location: {:?}", location.tile_location), 
-    }
+    } */
 
-}
 
 fn main() {
     let data: Vec<Tile> = parse_file("test_input");
@@ -156,7 +181,7 @@ fn main() {
     println!("Start location = {:?}", location);
     /*
     let target: char = 'S';
-    let start_location: (usize,usize) = match find_char_linear(target, &data) {
+    let start_location: (i32,usize) = match find_char_linear(target, &data) {
         Some((i, j)) => (i, j),
         None => (0,0)
     };
