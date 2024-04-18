@@ -1,12 +1,12 @@
-use std::{fs, process::exit};
+use std::{fs, process::exit, usize};
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 struct Tile {
     tile_type: TileType,
     tile_location: (i32,i32),
 }
 
-#[derive(Debug,PartialEq)]
+#[derive(Debug,PartialEq, Copy, Clone)]
 enum TileType {
     VerticalPipe,    // '|'
     HorizontalPipe,  // '-'
@@ -33,16 +33,16 @@ impl TileType {
         }
     }
 
-    fn connections(&self) -> &'static str {
+    fn connections(&self) -> [&'static str; 2] {
         match self {
-            TileType::VerticalPipe => "north-south",
-            TileType::HorizontalPipe => "east-west",
-            TileType::BendNE => "north-east",
-            TileType::BendNW => "north-west",
-            TileType::BendSW => "south-west",
-            TileType::BendSE => "south-east",
-            TileType::Ground => "none",
-            TileType::StartPosition => "unknown",
+            TileType::VerticalPipe => ["North", "South"],
+            TileType::HorizontalPipe => ["East", "West"],
+            TileType::BendNE => ["North", "East"],
+            TileType::BendNW => ["North", "West"],
+            TileType::BendSW => ["West", "South"],
+            TileType::BendSE => ["East", "South"],
+            TileType::Ground => ["None", "None"],
+            TileType::StartPosition => ["Unknown", "Unknown"],
         }
     }     
 }
@@ -64,6 +64,16 @@ impl Directions {
             Directions::West => (-1,0),
         }
     }
+
+    fn as_string(&self) -> &'static str {
+        match self {
+            Directions::North => "North",
+            Directions::East => "East",
+            Directions::South => "South",
+            Directions::West => "West",
+        }
+    }
+
 }
 
 
@@ -99,7 +109,7 @@ fn parse_file(file_path: &str) -> Vec<Tile> {
     data_vec
 }
 
-fn get_next_elements(data: &Vec<Tile>, location: &Tile, height: usize, width: usize) {
+fn get_first_connections(data: &Vec<Tile>, location: &Tile, height: i32, width: i32) {
 
     let directions = [
         Directions::North,
@@ -108,60 +118,40 @@ fn get_next_elements(data: &Vec<Tile>, location: &Tile, height: usize, width: us
         Directions::West,
     ];
 
-    let result = directions.iter().map(|dir|{
+    //let mut next_elements = Vec::new();
+
+    directions.iter().for_each(|dir|{
         let (dx,dy) = dir.transformation();
         let new_x = dx + location.tile_location.0;
         let new_y = dy + location.tile_location.1;
+        println!("{new_x},{new_y}");
     
         if new_x >= 0 && new_x < width as i32 && new_y >= 0 && new_y < height as i32 {
-            let index = new_y as usize * width + new_x as usize;
-            Some(data[index])
+            let find_new_tile = data.iter().find(|&tile| tile.tile_location == (new_x, new_y));
+
+            match find_new_tile {
+                None => println!("ERROR - couldnt find next tile"),
+                Some(tile) => {
+                    let  connections = tile.tile_type.connections();
+                    let dir_string = dir.as_string();
+                    println!("Connections = {:?}",connections);
+                    println!("Dir string = {:?}", dir_string);
+
+                    if connections.contains(&dir_string) {
+                        println!("Connected tile: {:?}", tile)
+                    }
+                
+                }
+            }
+
         } else {
-            None
+            println!("Out of bounds!");
         }
     });
 
-    }
 
-    /*
-    let north = data.iter().find(|&tile| tile.tile_location == (location.tile_location.0, location.tile_location.1 + 1));
-    let east = data.iter().find(|&tile| tile.tile_location == (location.tile_location.0 + 1, location.tile_location.1));
-    let south = data.iter().find(|&tile| tile.tile_location == (location.tile_location.0, location.tile_location.1 - 1));
-    let west = data.iter().find(|&tile| tile.tile_location == (location.tile_location.0 - 1, location.tile_location.1));
 
-    let north_tile: &Tile;
-    let east_tile: &Tile;
-    let south_tile: &Tile;
-    let west_tile: &Tile;
-    match north {
-        Some(tile) => {
-            println!("North = {:?}",tile);
-            north_tile = tile;
-        },
-        None => println!("North out of bounds at location: {:?}", location.tile_location), 
     }
-    match east {
-        Some(tile) => {
-            println!("East = {:?}",tile);
-            east_tile = tile;
-        },
-        None => println!("East out of bounds at location: {:?}", location.tile_location), 
-    }
-    match south {
-        Some(tile) => {
-            println!("South = {:?}",tile);
-            south_tile = tile;
-        },
-        None => println!("South out of bounds at location: {:?}", location.tile_location), 
-    }
-    match west {
-        Some(tile) => {
-            println!("West = {:?}",tile);
-            west_tile = tile;
-        },
-        None => println!("West out of bounds at location: {:?}", location.tile_location), 
-    } */
-
 
 fn main() {
     let data: Vec<Tile> = parse_file("test_input");
@@ -180,7 +170,7 @@ fn main() {
 
     let height = data.iter().map(|tile| tile.tile_location.1 ).max().unwrap_or(0);
     let width = data.iter().map(|tile| tile.tile_location.0 ).max().unwrap_or(0);
-    get_next_elements(&data, &location, height, width);
+    get_first_connections(&data, &location, height, width);
 
 
     println!("Start location = {:?}", location);
