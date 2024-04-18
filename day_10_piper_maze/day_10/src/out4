@@ -1,0 +1,102 @@
+
+Location = Tile { tile_char: 'S', tile_type: StartPosition, tile_location: (1, 3) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_char: '|', tile_type: VerticalPipe, tile_location: (1, 4) }
+ERROR - couldnt find tile, could be out of bounds.
+Cursors = (Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_char: '|', tile_type: VerticalPipe, tile_location: (1, 4) })
+
+Location = Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }
+
+Location = Tile { tile_char: '|', tile_type: VerticalPipe, tile_location: (1, 4) }
+Connected tile: Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) }
+ERROR - couldnt find tile, could be out of bounds.
+new cursors = (Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) })
+Cursors = (Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) })
+
+Location = Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (3, 2) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }
+
+Location = Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) }
+Connected tile: Tile { tile_char: '|', tile_type: VerticalPipe, tile_location: (1, 4) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) }
+Out of bounds!
+ERROR - couldnt find tile, could be out of bounds.
+new cursors = (Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) })
+Cursors = (Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) })
+
+Location = Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }
+
+Location = Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) }
+Connected tile: Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 4) }
+Out of bounds!
+Connected tile: Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) }
+new cursors = (Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) })
+Cursors = (Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) })
+
+Location = Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (3, 2) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }
+
+Location = Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) }
+Connected tile: Tile { tile_char: '|', tile_type: VerticalPipe, tile_location: (1, 4) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) }
+Out of bounds!
+ERROR - couldnt find tile, could be out of bounds.
+new cursors = (Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) })
+Cursors = (Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) })
+
+Location = Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }
+
+Location = Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) }
+Connected tile: Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 4) }
+Out of bounds!
+Connected tile: Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) }
+new cursors = (Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) })
+Cursors = (Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) })
+
+Location = Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (3, 2) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }
+
+Location = Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) }
+Connected tile: Tile { tile_char: '|', tile_type: VerticalPipe, tile_location: (1, 4) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) }
+Out of bounds!
+ERROR - couldnt find tile, could be out of bounds.
+new cursors = (Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) })
+Cursors = (Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) })
+
+Location = Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }
+
+Location = Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) }
+Connected tile: Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 4) }
+Out of bounds!
+Connected tile: Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) }
+new cursors = (Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) })
+Cursors = (Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) })
+
+Location = Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (3, 2) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }
+
+Location = Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) }
+Connected tile: Tile { tile_char: '|', tile_type: VerticalPipe, tile_location: (1, 4) }
+Connected tile: Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) }
+Out of bounds!
+ERROR - couldnt find tile, could be out of bounds.
+new cursors = (Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) })
+Cursors = (Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) })
+
+Location = Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }
+
+Location = Tile { tile_char: 'J', tile_type: BendNW, tile_location: (2, 5) }
+Connected tile: Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 4) }
+Out of bounds!
+Connected tile: Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) }
+new cursors = (Tile { tile_char: 'F', tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_char: 'L', tile_type: BendNE, tile_location: (1, 5) })
