@@ -74,7 +74,11 @@ fn parse_file(file_path: &str) -> Vec<Tile> {
 
     let mut data_vec: Vec<Tile> = Vec::new();
 
+    let mut width = 0;
+    let mut height = 0;
+
     for (i, row) in contents.lines().enumerate(){
+        height += 1;
         for (j, ch) in row.chars().enumerate() {
             match TileType::from_char(ch) {
                 Some(tile_type) => {
@@ -95,7 +99,8 @@ fn parse_file(file_path: &str) -> Vec<Tile> {
     data_vec
 }
 
-fn get_next_elements(data: &Vec<Tile>, location: &Tile) {
+fn get_next_elements(data: &Vec<Tile>, location: &Tile, height: usize, width: usize) {
+
     let directions = [
         Directions::North,
         Directions::East,
@@ -110,7 +115,7 @@ fn get_next_elements(data: &Vec<Tile>, location: &Tile) {
     
         if new_x >= 0 && new_x < width as i32 && new_y >= 0 && new_y < height as i32 {
             let index = new_y as usize * width + new_x as usize;
-            Some(tiles[index])
+            Some(data[index])
         } else {
             None
         }
@@ -173,9 +178,9 @@ fn main() {
         }
     };
 
-
-
-    get_next_elements(&data, &location);
+    let height = data.iter().map(|tile| tile.tile_location.1 ).max().unwrap_or(0);
+    let width = data.iter().map(|tile| tile.tile_location.0 ).max().unwrap_or(0);
+    get_next_elements(&data, &location, height, width);
 
 
     println!("Start location = {:?}", location);
