@@ -137,7 +137,7 @@ fn get_first_connections(data: &Vec<Tile>, location: &Tile, height: i32, width: 
                     println!("Connections = {:?}",connections);
                     println!("Dir string = {:?}", dir_string);
 
-                    if connections.contains(&dir_string) {
+                    if connections.iter().any(|&i| i == dir_string) {
                         println!("Connected tile: {:?}", tile)
                     }
                 
