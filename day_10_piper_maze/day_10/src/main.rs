@@ -119,6 +119,7 @@ fn parse_file(file_path: &str) -> Vec<Tile> {
 
     let mut data_vec: Vec<Tile> = Vec::new();
 
+
     for (i, row) in contents.lines().enumerate(){
         for (j, ch) in row.chars().enumerate() {
             match TileType::from_char(ch) {
@@ -139,6 +140,7 @@ fn parse_file(file_path: &str) -> Vec<Tile> {
             };            
         }
     }
+
     data_vec
 }
 
@@ -197,7 +199,7 @@ fn get_connected_tiles(data: &Vec<Tile>, location: &Tile, last_location: &mut (i
     connected_tiles.retain(|tile| tile.tile_location != *last_location);
 
     *last_location = (location.tile_location.0, location.tile_location.1);
-    dbg!(&connected_tiles);
+    println!("{:?}",&connected_tiles);
     match connected_tiles.len() {
         2 => Some((connected_tiles[0],connected_tiles[1])),
         1 => Some((connected_tiles[0],connected_tiles[0])),
@@ -205,9 +207,29 @@ fn get_connected_tiles(data: &Vec<Tile>, location: &Tile, last_location: &mut (i
     }
 }
 
+fn print_grid(grid: &Vec<Vec<i32>>) {
+    for row in grid {
+        for &val in row{
+            print!("{:4}", val);
+        }
+        println!();
+    }
+}
+
 fn main() {
-    let data: Vec<Tile> = parse_file("test_input");
+    let data: Vec<Tile> = parse_file("input_main");
     println!("{:?}",data);
+
+    let height = data.iter().map(|tile| tile.tile_location.1 ).max().unwrap_or(0);
+    let width = data.iter().map(|tile| tile.tile_location.0 ).max().unwrap_or(0);
+    println!("Height {height} width {width}");
+    let mut result_vec = vec![vec![0;width as usize]; height as usize];
+
+    result_vec.reverse();
+
+
+
+    //print_grid(&result_vec);
     
     let mut location: &Tile;    
     match data.iter().find(|&tile| tile.tile_type == TileType::StartPosition) {
@@ -221,8 +243,7 @@ fn main() {
     };
 
     let mut last_location = (0,0);
-    let height = data.iter().map(|tile| tile.tile_location.1 ).max().unwrap_or(0);
-    let width = data.iter().map(|tile| tile.tile_location.0 ).max().unwrap_or(0);
+
     let mut cursors = match get_connected_tiles(&data, &location, &mut last_location, height, width) {
        Some((cursor1,cursor2)) => (cursor1,cursor2) ,
        None => panic!("Crash and burn")
@@ -232,8 +253,13 @@ fn main() {
     let mut last_location_0 = cursors.0.tile_location.clone();
     let mut last_location_1 = cursors.1.tile_location.clone();
 
-    while cursors.0 != cursors.1 {
+    while cursors.0 != cursors.1 { 
         println!("Cursors = {:?}", cursors);
+        //Add steps to grid
+        result_vec[(cursors.0.tile_location.0 - 1) as usize][(cursors.0.tile_location.1 - 1) as usize] = steps;
+        result_vec[(cursors.1.tile_location.0 - 1) as usize][(cursors.1.tile_location.1 - 1) as usize] = steps;
+        //print_grid(&result_vec);
+
         cursors.0 = match get_connected_tiles(&data, &cursors.0, &mut last_location_0, height, width) {
             Some((cursor1,cursor2)) => {
                 match cursors.0 {
@@ -251,12 +277,13 @@ fn main() {
                     cursor2 => cursor1,
                     _ => panic!("Crash and burn")
                 } 
-            },            None => panic!("Crash and burn")
+            },
+            None => panic!("Crash and burn")
         };
-        println!("new cursors = {:?}", cursors);
 
+        println!("new cursors = {:?}", cursors);
         steps +=1;
     }
 
-    println!("Steps to finish = {}",steps/2);
+    println!("Steps to finish = {}",steps);
 }
