@@ -1,7 +1,8 @@
 use std::{fs, process::exit, usize};
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 struct Tile {
+    tile_char: char,
     tile_type: TileType,
     tile_location: (i32,i32),
 }
@@ -32,6 +33,19 @@ impl TileType {
             _ => None, // Handle unexpected characters
         }
     }
+    
+    fn to_char(&self) -> char {
+        match self {
+            TileType::VerticalPipe => '|',
+            TileType::HorizontalPipe => '-',
+            TileType::BendNE => 'L',
+            TileType::BendNW => 'J',
+            TileType::BendSW => '7',
+            TileType::BendSE => 'F',
+            TileType::Ground => '.',
+            TileType::StartPosition => 'S'
+        }
+    }
 
     fn connections(&self) -> [&'static str; 2] {
         match self {
@@ -58,9 +72,9 @@ enum Directions {
 impl Directions {
     fn transformation(&self) -> (i32,i32) {
         match self {
-            Directions::North => (0,1),
+            Directions::North => (0,-1),
             Directions::East => (1,0),
-            Directions::South => (0,-1),
+            Directions::South => (0,1),
             Directions::West => (-1,0),
         }
     }
@@ -74,6 +88,27 @@ impl Directions {
         }
     }
 
+    fn from_string(direction_string: &str) -> Option<Directions> {
+        match direction_string {
+            "North" => Some(Directions::North),
+            "East" => Some(Directions::East),
+            "South" => Some(Directions::South),
+            "West" => Some(Directions::West),
+            _ => None
+        }
+
+    }
+
+    fn opposite(&self) -> Option<Directions> {
+        match self {
+            Directions::North => Some(Directions::South),
+            Directions::West => Some(Directions::East),
+            Directions::South => Some(Directions::North),
+            Directions::East => Some(Directions::West),
+
+        }
+    }
+
 }
 
 
@@ -84,19 +119,17 @@ fn parse_file(file_path: &str) -> Vec<Tile> {
 
     let mut data_vec: Vec<Tile> = Vec::new();
 
-    let mut width = 0;
-    let mut height = 0;
-
     for (i, row) in contents.lines().enumerate(){
-        height += 1;
         for (j, ch) in row.chars().enumerate() {
             match TileType::from_char(ch) {
                 Some(tile_type) => {
-                    let x_i = i as i32; 
-                    let x_j = j as i32; 
+                    let y = i as i32 +1; 
+                    let x = j as i32 +1; 
 
-                    let tile_location = (x_i,x_j);
+                    let tile_location = (x,y);
+                    let tile_char = tile_type.to_char();
                     let tile = Tile {
+                        tile_char,
                         tile_type,
                         tile_location
                     };
@@ -109,36 +142,48 @@ fn parse_file(file_path: &str) -> Vec<Tile> {
     data_vec
 }
 
-fn get_first_connections(data: &Vec<Tile>, location: &Tile, height: i32, width: i32) {
+fn get_connected_tiles(data: &Vec<Tile>, location: &Tile, last_location: &mut (i32,i32), height: i32, width: i32) -> Option<(Tile, Tile)> {
 
-    let directions = [
-        Directions::North,
-        Directions::East,
-        Directions::South,
-        Directions::West,
-    ];
+    let mut directions = Vec::new();
+    println!("\nLocation = {:?}",location);
 
-    //let mut next_elements = Vec::new();
+
+    if location.tile_type != TileType::StartPosition {
+        let connection_directions = location.tile_type.connections();
+        directions = connection_directions.iter()
+            .filter_map(|dir_string| Directions::from_string(dir_string))
+            .collect();
+    } else {
+        directions = vec![Directions::North,Directions::East,Directions::South,Directions::West];
+
+    }
+
+    let mut connected_tiles = Vec::new();
 
     directions.iter().for_each(|dir|{
         let (dx,dy) = dir.transformation();
         let new_x = dx + location.tile_location.0;
         let new_y = dy + location.tile_location.1;
-        println!("{new_x},{new_y}");
     
-        if new_x >= 0 && new_x < width as i32 && new_y >= 0 && new_y < height as i32 {
+        if new_x >= 0 && new_x <= width as i32 && new_y >= 0 && new_y <= height as i32 {
             let find_new_tile = data.iter().find(|&tile| tile.tile_location == (new_x, new_y));
 
+            //We have a new tile to check 
             match find_new_tile {
-                None => println!("ERROR - couldnt find next tile"),
+                None => println!("ERROR - couldnt find tile, could be out of bounds."),
                 Some(tile) => {
-                    let  connections = tile.tile_type.connections();
-                    let dir_string = dir.as_string();
-                    println!("Connections = {:?}",connections);
-                    println!("Dir string = {:?}", dir_string);
 
-                    if connections.iter().any(|&i| i == dir_string) {
-                        println!("Connected tile: {:?}", tile)
+                    let connections = tile.tile_type.connections();
+                    let dir_opposite = match dir.opposite() {
+                        Some(direction) => direction,
+                        None => panic!("Crash and burn."),
+                    };
+
+                    //I
+                    println!("Connections = {:?} opposite direction {:?} is {:?}", connections, dir, dir_opposite);
+                    if connections.iter().any(|&i| i == dir_opposite.as_string() ) {
+                        println!("Connected tile: {:?}", tile);
+                        connected_tiles.push(tile.clone());
                     }
                 
                 }
@@ -148,14 +193,21 @@ fn get_first_connections(data: &Vec<Tile>, location: &Tile, height: i32, width: 
             println!("Out of bounds!");
         }
     });
+    println!("Last location = {:?}",location);
+    connected_tiles.retain(|tile| tile.tile_location != *last_location);
 
-
-
+    *last_location = (location.tile_location.0, location.tile_location.1);
+    dbg!(&connected_tiles);
+    match connected_tiles.len() {
+        2 => Some((connected_tiles[0],connected_tiles[1])),
+        1 => Some((connected_tiles[0],connected_tiles[0])),
+        _ => None
     }
+}
 
 fn main() {
     let data: Vec<Tile> = parse_file("test_input");
-    //println!("{:?}",data);
+    println!("{:?}",data);
     
     let mut location: &Tile;    
     match data.iter().find(|&tile| tile.tile_type == TileType::StartPosition) {
@@ -168,28 +220,43 @@ fn main() {
         }
     };
 
+    let mut last_location = (0,0);
     let height = data.iter().map(|tile| tile.tile_location.1 ).max().unwrap_or(0);
     let width = data.iter().map(|tile| tile.tile_location.0 ).max().unwrap_or(0);
-    get_first_connections(&data, &location, height, width);
-
-
-    println!("Start location = {:?}", location);
-    /*
-    let target: char = 'S';
-    let start_location: (i32,usize) = match find_char_linear(target, &data) {
-        Some((i, j)) => (i, j),
-        None => (0,0)
+    let mut cursors = match get_connected_tiles(&data, &location, &mut last_location, height, width) {
+       Some((cursor1,cursor2)) => (cursor1,cursor2) ,
+       None => panic!("Crash and burn")
     };
 
-    let adjacent_tiles = get_adjacent_nodes(start_location);
+    let mut steps = 1;
+    let mut last_location_0 = cursors.0.tile_location.clone();
+    let mut last_location_1 = cursors.1.tile_location.clone();
 
-    let pointer_one = start_location.clone();
-    let pointer_two = start_location.clone();
+    while cursors.0 != cursors.1 {
+        println!("Cursors = {:?}", cursors);
+        cursors.0 = match get_connected_tiles(&data, &cursors.0, &mut last_location_0, height, width) {
+            Some((cursor1,cursor2)) => {
+                match cursors.0 {
+                    cursor1 => cursor2,
+                    cursor2 => cursor1,
+                    _ => panic!("Crash and burn")
+                } 
+            },
+            None => panic!("Crash and burn")
+        };
+        cursors.1 = match get_connected_tiles(&data, &cursors.1, &mut last_location_1, height, width) {
+            Some((cursor1,cursor2)) => {
+                match cursors.0 {
+                    cursor1 => cursor2,
+                    cursor2 => cursor1,
+                    _ => panic!("Crash and burn")
+                } 
+            },            None => panic!("Crash and burn")
+        };
+        println!("new cursors = {:?}", cursors);
 
-    let completed_loop: bool = false;
-
-    while !completed_loop {
-        
+        steps +=1;
     }
-    */
+
+    println!("Steps to finish = {}",steps/2);
 }

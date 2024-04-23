@@ -1,0 +1,222 @@
+[Tile { tile_type: Ground, tile_location: (1, 1) }, Tile { tile_type: Ground, tile_location: (2, 1) }, Tile { tile_type: BendSE, tile_location: (3, 1) }, Tile { tile_type: BendSW, tile_location: (4, 1) }, Tile { tile_type: Ground, tile_location: (5, 1) }, Tile { tile_type: Ground, tile_location: (1, 2) }, Tile { tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_type: BendNW, tile_location: (3, 2) }, Tile { tile_type: VerticalPipe, tile_location: (4, 2) }, Tile { tile_type: Ground, tile_location: (5, 2) }, Tile { tile_type: StartPosition, tile_location: (1, 3) }, Tile { tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_type: Ground, tile_location: (3, 3) }, Tile { tile_type: BendNE, tile_location: (4, 3) }, Tile { tile_type: BendSW, tile_location: (5, 3) }, Tile { tile_type: VerticalPipe, tile_location: (1, 4) }, Tile { tile_type: BendSE, tile_location: (2, 4) }, Tile { tile_type: HorizontalPipe, tile_location: (3, 4) }, Tile { tile_type: HorizontalPipe, tile_location: (4, 4) }, Tile { tile_type: BendNW, tile_location: (5, 4) }, Tile { tile_type: BendNE, tile_location: (1, 5) }, Tile { tile_type: BendNW, tile_location: (2, 5) }, Tile { tile_type: Ground, tile_location: (3, 5) }, Tile { tile_type: Ground, tile_location: (4, 5) }, Tile { tile_type: Ground, tile_location: (5, 5) }]
+Location = Tile { tile_type: StartPosition, tile_location: (1, 3) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: Ground, tile_location: (1, 2) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (2, 3) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Connected tile: Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Direction = -1,0
+ERROR - couldnt find next tile
+Cursors = (Tile { tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_type: VerticalPipe, tile_location: (1, 4) })
+Location = Tile { tile_type: BendNW, tile_location: (2, 3) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 2) }
+Connected tile: Tile { tile_type: BendSE, tile_location: (2, 2) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (3, 3) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Direction = -1,0
+Adjacent tile: Tile { tile_type: StartPosition, tile_location: (1, 3) }
+Location = Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: StartPosition, tile_location: (1, 3) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: BendNE, tile_location: (1, 5) }
+Connected tile: Tile { tile_type: BendNE, tile_location: (1, 5) }
+Direction = -1,0
+ERROR - couldnt find next tile
+new cursors = (Tile { tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_type: BendNE, tile_location: (1, 5) })
+Cursors = (Tile { tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_type: BendNE, tile_location: (1, 5) })
+Location = Tile { tile_type: BendSE, tile_location: (2, 2) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: Ground, tile_location: (2, 1) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (3, 2) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (3, 2) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (2, 3) }
+Direction = -1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (1, 2) }
+Location = Tile { tile_type: BendNE, tile_location: (1, 5) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Connected tile: Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (2, 5) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (2, 5) }
+Direction = 0,1
+Out of bounds!
+Direction = -1,0
+ERROR - couldnt find next tile
+new cursors = (Tile { tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_type: BendNW, tile_location: (2, 5) })
+Cursors = (Tile { tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_type: BendNW, tile_location: (2, 5) })
+Location = Tile { tile_type: BendNW, tile_location: (2, 3) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 2) }
+Connected tile: Tile { tile_type: BendSE, tile_location: (2, 2) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (3, 3) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Direction = -1,0
+Adjacent tile: Tile { tile_type: StartPosition, tile_location: (1, 3) }
+Location = Tile { tile_type: BendNW, tile_location: (2, 5) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Connected tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (3, 5) }
+Direction = 0,1
+Out of bounds!
+Direction = -1,0
+Adjacent tile: Tile { tile_type: BendNE, tile_location: (1, 5) }
+Connected tile: Tile { tile_type: BendNE, tile_location: (1, 5) }
+new cursors = (Tile { tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_type: BendNE, tile_location: (1, 5) })
+Cursors = (Tile { tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_type: BendNE, tile_location: (1, 5) })
+Location = Tile { tile_type: BendSE, tile_location: (2, 2) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: Ground, tile_location: (2, 1) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (3, 2) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (3, 2) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (2, 3) }
+Direction = -1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (1, 2) }
+Location = Tile { tile_type: BendNE, tile_location: (1, 5) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Connected tile: Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (2, 5) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (2, 5) }
+Direction = 0,1
+Out of bounds!
+Direction = -1,0
+ERROR - couldnt find next tile
+new cursors = (Tile { tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_type: BendNW, tile_location: (2, 5) })
+Cursors = (Tile { tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_type: BendNW, tile_location: (2, 5) })
+Location = Tile { tile_type: BendNW, tile_location: (2, 3) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 2) }
+Connected tile: Tile { tile_type: BendSE, tile_location: (2, 2) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (3, 3) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Direction = -1,0
+Adjacent tile: Tile { tile_type: StartPosition, tile_location: (1, 3) }
+Location = Tile { tile_type: BendNW, tile_location: (2, 5) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Connected tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (3, 5) }
+Direction = 0,1
+Out of bounds!
+Direction = -1,0
+Adjacent tile: Tile { tile_type: BendNE, tile_location: (1, 5) }
+Connected tile: Tile { tile_type: BendNE, tile_location: (1, 5) }
+new cursors = (Tile { tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_type: BendNE, tile_location: (1, 5) })
+Cursors = (Tile { tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_type: BendNE, tile_location: (1, 5) })
+Location = Tile { tile_type: BendSE, tile_location: (2, 2) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: Ground, tile_location: (2, 1) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (3, 2) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (3, 2) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (2, 3) }
+Direction = -1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (1, 2) }
+Location = Tile { tile_type: BendNE, tile_location: (1, 5) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Connected tile: Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (2, 5) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (2, 5) }
+Direction = 0,1
+Out of bounds!
+Direction = -1,0
+ERROR - couldnt find next tile
+new cursors = (Tile { tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_type: BendNW, tile_location: (2, 5) })
+Cursors = (Tile { tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_type: BendNW, tile_location: (2, 5) })
+Location = Tile { tile_type: BendNW, tile_location: (2, 3) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 2) }
+Connected tile: Tile { tile_type: BendSE, tile_location: (2, 2) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (3, 3) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Direction = -1,0
+Adjacent tile: Tile { tile_type: StartPosition, tile_location: (1, 3) }
+Location = Tile { tile_type: BendNW, tile_location: (2, 5) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Connected tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (3, 5) }
+Direction = 0,1
+Out of bounds!
+Direction = -1,0
+Adjacent tile: Tile { tile_type: BendNE, tile_location: (1, 5) }
+Connected tile: Tile { tile_type: BendNE, tile_location: (1, 5) }
+new cursors = (Tile { tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_type: BendNE, tile_location: (1, 5) })
+Cursors = (Tile { tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_type: BendNE, tile_location: (1, 5) })
+Location = Tile { tile_type: BendSE, tile_location: (2, 2) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: Ground, tile_location: (2, 1) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (3, 2) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (3, 2) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (2, 3) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (2, 3) }
+Direction = -1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (1, 2) }
+Location = Tile { tile_type: BendNE, tile_location: (1, 5) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Connected tile: Tile { tile_type: VerticalPipe, tile_location: (1, 4) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: BendNW, tile_location: (2, 5) }
+Connected tile: Tile { tile_type: BendNW, tile_location: (2, 5) }
+Direction = 0,1
+Out of bounds!
+Direction = -1,0
+ERROR - couldnt find next tile
+new cursors = (Tile { tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_type: BendNW, tile_location: (2, 5) })
+Cursors = (Tile { tile_type: BendNW, tile_location: (2, 3) }, Tile { tile_type: BendNW, tile_location: (2, 5) })
+Location = Tile { tile_type: BendNW, tile_location: (2, 3) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 2) }
+Connected tile: Tile { tile_type: BendSE, tile_location: (2, 2) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (3, 3) }
+Direction = 0,1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Direction = -1,0
+Adjacent tile: Tile { tile_type: StartPosition, tile_location: (1, 3) }
+Location = Tile { tile_type: BendNW, tile_location: (2, 5) }
+Direction = 0,-1
+Adjacent tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Connected tile: Tile { tile_type: BendSE, tile_location: (2, 4) }
+Direction = 1,0
+Adjacent tile: Tile { tile_type: Ground, tile_location: (3, 5) }
+Direction = 0,1
+Out of bounds!
+Direction = -1,0
+Adjacent tile: Tile { tile_type: BendNE, tile_location: (1, 5) }
+Connected tile: Tile { tile_type: BendNE, tile_location: (1, 5) }
+new cursors = (Tile { tile_type: BendSE, tile_location: (2, 2) }, Tile { tile_type: BendNE, tile_location: (1, 5) })
