@@ -6,7 +6,7 @@ struct Galaxy {
     location: (usize,usize),
 }
 
-fn parse_file_and_expand_universe(file_path: &str) -> Vec<Vec<char>>{
+fn parse_file_and_expand_universe(file_path: &str, expansion_factor: usize) -> Vec<Vec<char>>{
     let contents = fs::read_to_string(file_path).expect("Some error occurred");
 
     let mut rows: Vec<&str> = contents.lines().collect();
@@ -31,8 +31,19 @@ fn parse_file_and_expand_universe(file_path: &str) -> Vec<Vec<char>>{
     println!("Empty rows: {:?}",empty_rows);
     let mut offset = 0;
     for i in &empty_rows {
-        rows.insert(*i+offset, rows[*i+offset]);
-        offset +=1;
+        let first_layer = &rows[..*i+offset]; 
+        let vec_to_insert = vec![rows[*i+offset]; expansion_factor];
+        let end_layer = &rows[*i+offset+1..];
+        println!("Start: {:?}",first_layer);
+        println!("To insert: {:?}",vec_to_insert);
+        println!("End: {:?}",end_layer);
+        rows = [first_layer, &vec_to_insert, end_layer].concat();
+//        rows.insert(*i+offset, vec_to_insert);
+        offset += expansion_factor;
+        println!("Expanded data:");
+        for row in &rows {
+            println!("{:?}",row);
+        }
     }
 
     let mut transposed_expanded_rows: Vec<String> = vec![String::new(); rows[0].len()];
@@ -138,7 +149,7 @@ fn find_sum_of_distances(pairs: &Vec<(Galaxy,Galaxy)>) {
 }
 
 fn main() {
-    let the_universe: Vec<Vec<char>> = parse_file_and_expand_universe("input_main");
+    let the_universe: Vec<Vec<char>> = parse_file_and_expand_universe("test_input", 10);
 
     let v_galaxies: Vec<Galaxy> = generate_galaxies(&the_universe);
 
