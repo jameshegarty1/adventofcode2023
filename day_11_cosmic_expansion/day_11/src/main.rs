@@ -1,4 +1,10 @@
-use std::fs;
+use std::{fs};
+
+#[derive(Debug,Clone)]
+struct Galaxy {
+    id: usize,
+    location: (usize,usize),
+}
 
 fn parse_file_and_expand_universe(file_path: &str) -> Vec<Vec<char>>{
     let contents = fs::read_to_string(file_path).expect("Some error occurred");
@@ -22,8 +28,11 @@ fn parse_file_and_expand_universe(file_path: &str) -> Vec<Vec<char>>{
         })
         .collect();
 
+    println!("Empty rows: {:?}",empty_rows);
+    let mut offset = 0;
     for i in &empty_rows {
-        rows.insert(*i, rows[*i]);
+        rows.insert(*i+offset, rows[*i+offset]);
+        offset +=1;
     }
 
     let mut transposed_expanded_rows: Vec<String> = vec![String::new(); rows[0].len()];
@@ -32,6 +41,8 @@ fn parse_file_and_expand_universe(file_path: &str) -> Vec<Vec<char>>{
         for (i, ch) in row.chars().enumerate() {
             transposed_expanded_rows[i].push(ch);       }
     }
+
+    
 
     let empty_columns: Vec<usize> = transposed_expanded_rows
         .iter()
@@ -46,23 +57,37 @@ fn parse_file_and_expand_universe(file_path: &str) -> Vec<Vec<char>>{
         })
         .collect();
 
-    println!("\nData after expansion applied:");
 
+    println!("Empty columns: {:?}",empty_columns);
+
+    let mut offset = 0;
     for i in &empty_columns {
-        transposed_expanded_rows.insert(*i, transposed_expanded_rows[*i].clone());
-    }
+        println!("Current dataset:");
+        for row in &transposed_expanded_rows {
+            println!("{:?}",row);
+        }
 
+
+        println!("Re-inserting column at index {} : {:?}",*i+offset,transposed_expanded_rows[*i+offset]);
+        transposed_expanded_rows.insert(*i+offset, transposed_expanded_rows[*i+offset].clone());
+        offset +=1;
+    }
+    println!("Current dataset:");
+    for row in &transposed_expanded_rows {
+        println!("{:?}",row);
+    }
+    
     let rows_size = transposed_expanded_rows.len();
     let cols_size = transposed_expanded_rows[0].len();
 
-    let mut expanded_data: Vec<Vec<char>> = vec![vec![' ';cols_size];rows_size];
+    let mut expanded_data: Vec<Vec<char>> = vec![vec![' ';rows_size];cols_size];
 
     for (i,row) in transposed_expanded_rows.into_iter().enumerate(){
         for (j,ch) in row.chars().enumerate() {
-            expanded_data[i][j] = ch;
+            expanded_data[j][i] = ch;
         }
     }
-
+    println!("\nData after expansion applied:");
     for row in &expanded_data {
         println!("{:?}",row);
     }
@@ -70,27 +95,56 @@ fn parse_file_and_expand_universe(file_path: &str) -> Vec<Vec<char>>{
     expanded_data
 }
 
-fn get_galaxy_pairs(universe: &Vec<Vec<char>>) {
-    let mut galaxy_locations: Vec<(usize,usize)> = Vec::new();
+fn generate_galaxies(universe: &Vec<Vec<char>>) -> Vec<Galaxy> {
+    let mut v_galaxies: Vec<Galaxy> = Vec::new();
+    let mut ids: usize= 1;
     for (j,row) in universe.iter().enumerate() {
         for (i,ch) in row.iter().enumerate() {
             if *ch == '#' {
-                galaxy_locations.push((i,j))
+                let galaxy = Galaxy {
+                    id: ids,
+                    location: (i,j)
+                };
+                v_galaxies.push(galaxy);
+                ids += 1;
             
             }
         }
     }
 
-    println!("Galaxy locations: {:?}",galaxy_locations);
+    v_galaxies
+}
 
-    let pairs: Vec<_> = galaxy_locations.iter()
-        .map((|&g| galaxy_locations.iter().map(move |&gn| gn.to_owned() , g)))
-        .flatten()
-        .collect();
+fn get_galaxy_pairs(galaxies: &Vec<Galaxy>) -> Vec<(Galaxy,Galaxy)> {
+    //let pairs: Vec<(Galaxy,Galaxy)> = galaxies.iter().map(|&g| (g,galaxies.iter()))
+    let pairs: Vec<(Galaxy,Galaxy)> = galaxies.iter()
+        .enumerate()
+        .flat_map(|(i,g)| galaxies.iter().skip(i+1).map(move |gg| (g.clone(), gg.clone()))).collect();
+
+    pairs
+}
+
+fn find_sum_of_distances(pairs: &Vec<(Galaxy,Galaxy)>) {
+    let mut sum_dist = 0 as f64;
+    for pair in pairs {
+        let x_dist = (pair.0.location.0 as f64 - pair.1.location.0 as f64).abs();
+        let y_dist = (pair.0.location.1 as f64 - pair.1.location.1 as f64).abs();
+
+        let dist = x_dist + y_dist;
+        sum_dist += dist;
+    }
+    println!("Sum dist = {sum_dist}");
+
 }
 
 fn main() {
-    let the_universe: Vec<Vec<char>> = parse_file_and_expand_universe("test_input");
+    let the_universe: Vec<Vec<char>> = parse_file_and_expand_universe("input_main");
 
-    get_galaxy_pairs(&the_universe);
+    let v_galaxies: Vec<Galaxy> = generate_galaxies(&the_universe);
+
+    println!("Galaxies:\n{:?}",v_galaxies);
+
+    let pairs = get_galaxy_pairs(&v_galaxies);
+
+    find_sum_of_distances(&pairs)
 }
