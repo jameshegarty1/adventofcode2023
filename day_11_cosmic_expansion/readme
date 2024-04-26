@@ -1,0 +1,48 @@
+Cosmic data of the form where "." is empty space and "#" are galaxies
+
+...#......
+.......#..
+#.........
+..........
+......#...
+.#........
+.........#
+..........
+.......#..
+#...#.....
+
+
+Needs the sum of the lengths of the shortest path beween every pair of galaxies
+
+Any rows or columns that contain no galaxies should all actually be twice as big. THis is due to gravitational effects.
+
+In the above example, three columns and two rows contain no galaxies:
+
+   v  v  v
+ ...#......
+ .......#..
+ #.........
+>..........<
+ ......#...
+ .#........
+ .........#
+>..........<
+ .......#..
+ #...#.....
+   ^  ^  ^
+
+
+First we need to expand the universe. In practice, that means for all columns and rows which are all ".", that column/row needs to be duplicated in place.
+
+Second, we need to make an algorithm which will compute distance between each pair.
+
+
+
+
+Part 2
+
+Now, instead of the expansion you did before, make each empty row or column one million times larger. That is, each empty row should be replaced with 1000000 empty rows, and each empty column should be replaced with 1000000 empty columns.
+
+So, instead of inserting 1 column at the location, need to insert 1000000
+
+Can test with 10 or 100 times as per the example
