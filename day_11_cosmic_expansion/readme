@@ -46,3 +46,11 @@ Now, instead of the expansion you did before, make each empty row or column one 
 So, instead of inserting 1 column at the location, need to insert 1000000
 
 Can test with 10 or 100 times as per the example
+
+
+Problem with this is it takes too much memory and crashes the program
+
+
+Instead could try:
+Iterate over grid, find locations of '"' and also locations of empty rows and columns
+To expand, shift elements locations by the expansion factor
